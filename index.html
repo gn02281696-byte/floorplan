@@ -50,7 +50,7 @@
       font-weight: 600;
     }
     .content {
-      max-width: 920px;
+      max-width: 960px;
       margin: 0 auto;
       padding: 1.2rem 0.8rem 3rem;
     }
@@ -81,7 +81,7 @@
     }
     .info-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 0.7rem;
       margin: 1rem 0;
     }
@@ -94,21 +94,19 @@
     .info-item strong { display: block; color: #4a5568; font-size: 0.78rem; }
     .btn {
       display: inline-block;
-      margin-top: 0.9rem;
+      margin-top: 0.8rem;
       margin-right: 0.5rem;
-      padding: 0.7rem 1.3rem;
+      padding: 0.65rem 1.2rem;
       background: #2b6cb0;
       color: white;
       text-decoration: none;
       border-radius: 8px;
       font-weight: 600;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       transition: background 0.2s;
     }
     .btn:hover { background: #1a365d; }
-    .btn-map {
-      background: #38a169;
-    }
+    .btn-map { background: #38a169; }
     .btn-map:hover { background: #2f855a; }
     .note {
       margin-top: 1rem;
@@ -119,12 +117,84 @@
       font-size: 0.88rem;
       color: #744210;
     }
-    .unit-list {
-      margin-top: 0.9rem;
-      font-size: 0.9rem;
+    .floorplans {
+      margin-top: 1.2rem;
     }
-    .unit-list ul {
-      margin: 0.4rem 0 0 1.2rem;
+    .floorplans h3 {
+      font-size: 1rem;
+      color: #2d3748;
+      margin-bottom: 0.7rem;
+    }
+    .thumb-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 0.8rem;
+    }
+    .thumb {
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+      background: #f8fafc;
+    }
+    .thumb:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    }
+    .thumb img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .thumb-label {
+      padding: 0.4rem 0.5rem;
+      font-size: 0.78rem;
+      text-align: center;
+      color: #4a5568;
+      background: #edf2f7;
+    }
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+    }
+    .lightbox.active {
+      display: flex;
+    }
+    .lightbox img {
+      max-width: 96%;
+      max-height: 90vh;
+      border-radius: 6px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 1rem;
+      right: 1.2rem;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      line-height: 1;
+    }
+    .lightbox-caption {
+      position: absolute;
+      bottom: 1.2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 0.9rem;
+      background: rgba(0,0,0,0.5);
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
     }
     footer {
       text-align: center;
@@ -137,7 +207,7 @@
 <body>
   <header>
     <h1>宏福苑特設銷售計劃</h1>
-    <p>全部 10 個屋苑平面圖一覽（直接連去官方售樓說明書 + Google 地圖）</p>
+    <p>全部 10 個屋苑平面圖一覽（縮圖點擊可放大 · 含單位號碼）</p>
   </header>
 
   <div class="tabs">
@@ -159,23 +229,28 @@
     <div id="shingchi" class="panel active">
       <div class="card">
         <h2>盛緻苑 <span class="badge">Shing Chi Court</span></h2>
-        <p>九龍灣宏照道3號｜綠置居2025（已落成）</p>
+        <p>九龍灣宏照道3號｜綠置居2025</p>
         <div class="info-grid">
           <div class="info-item"><strong>特設單位數</strong>610</div>
           <div class="info-item"><strong>座數</strong>A座 + B座</div>
           <div class="info-item"><strong>實用面積</strong>約280–469呎</div>
           <div class="info-item"><strong>預計入伙</strong>已落成</div>
         </div>
-        <div class="unit-list">
-          <strong>室號概況：</strong>
-          <ul>
-            <li>A座標準層約20–21伙（常見1–21號）</li>
-            <li>B座標準層約18伙（常見1–18號）</li>
-          </ul>
+        <div class="floorplans">
+          <h3>平面圖（含單位號碼）· 點擊縮圖放大</h3>
+          <div class="thumb-grid">
+            <div class="thumb" onclick="openLightbox('shingchi_A_typical-026.png','盛緻苑 A座 標準層 (2/F–39/F)')">
+              <img src="thumb_shingchi_A.png" alt="盛緻苑 A座標準層">
+              <div class="thumb-label">A座 標準層<br>2/F–39/F</div>
+            </div>
+            <div class="thumb" onclick="openLightbox('shingchi_B_typical-034.png','盛緻苑 B座 標準層 (4/F–38/F)')">
+              <img src="thumb_shingchi_B.png" alt="盛緻苑 B座標準層">
+              <div class="thumb-label">B座 標準層<br>4/F–38/F</div>
+            </div>
+          </div>
         </div>
-        <a class="btn" href="https://hos.housingauthority.gov.hk/mini-site/gsh2025/common/pdf/Sales-Brochure-ShingChi.pdf" target="_blank">直接下載售樓說明書 PDF</a>
-        <a class="btn btn-map" href="https://www.google.com/maps/search/?api=1&query=盛緻苑+宏照道3號" target="_blank">查看 Google 地圖</a>
-        <div class="note">PDF 內含完整平面圖及室號。</div>
+        <a class="btn" href="https://hos.housingauthority.gov.hk/mini-site/gsh2025/common/pdf/Sales-Brochure-ShingChi.pdf" target="_blank">完整售樓說明書 PDF</a>
+        <a class="btn btn-map" href="https://www.google.com/maps/search/?api=1&query=盛緻苑+宏照道3號" target="_blank">Google 地圖</a>
       </div>
     </div>
 
@@ -190,9 +265,17 @@
           <div class="info-item"><strong>實用面積</strong>約281–449呎</div>
           <div class="info-item"><strong>預計關鍵日期</strong>2027年8月31日</div>
         </div>
-        <a class="btn" href="https://hos.housingauthority.gov.hk/mini-site/hos2025/common/pdf/Sales-Booklet-WuiHei.pdf" target="_blank">直接下載售樓說明書 PDF</a>
-        <a class="btn btn-map" href="https://www.google.com/maps/search/?api=1&query=匯熙苑+錦義路" target="_blank">查看 Google 地圖</a>
-        <div class="note">PDF 內含完整平面圖及室號。</div>
+        <div class="floorplans">
+          <h3>平面圖（含單位號碼）· 點擊縮圖放大</h3>
+          <div class="thumb-grid">
+            <div class="thumb" onclick="openLightbox('wuihei_typ-06.png','匯熙苑 標準層平面圖')">
+              <img src="thumb_wuihei.png" alt="匯熙苑標準層">
+              <div class="thumb-label">標準層平面圖</div>
+            </div>
+          </div>
+        </div>
+        <a class="btn" href="https://hos.housingauthority.gov.hk/mini-site/hos2025/common/pdf/Sales-Booklet-WuiHei.pdf" target="_blank">完整售樓說明書 PDF</a>
+        <a class="btn btn-map" href="https://www.google.com/maps/search/?api=1&query=匯熙苑+錦義路" target="_blank">Google 地圖</a>
       </div>
     </div>
 
@@ -207,9 +290,17 @@
           <div class="info-item"><strong>實用面積</strong>約281–499呎</div>
           <div class="info-item"><strong>預計關鍵日期</strong>2027年9月30日</div>
         </div>
-        <a class="btn" href="https://hos.housingauthority.gov.hk/mini-site/hos2025/common/pdf/Sales-Booklet-YuFung.pdf" target="_blank">直接下載售樓說明書 PDF</a>
-        <a class="btn btn-map" href="https://www.google.com/maps/search/?api=1&query=裕豐苑+匯東街12號" target="_blank">查看 Google 地圖</a>
-        <div class="note">PDF 內含完整平面圖及室號。</div>
+        <div class="floorplans">
+          <h3>平面圖（含單位號碼）· 點擊縮圖放大</h3>
+          <div class="thumb-grid">
+            <div class="thumb" onclick="openLightbox('yufung_typ-06.png','裕豐苑 標準層平面圖')">
+              <img src="thumb_yufung.png" alt="裕豐苑標準層">
+              <div class="thumb-label">標準層平面圖</div>
+            </div>
+          </div>
+        </div>
+        <a class="btn" href="https://hos.housingauthority.gov.hk/mini-site/hos2025/common/pdf/Sales-Booklet-YuFung.pdf" target="_blank">完整售樓說明書 PDF</a>
+        <a class="btn btn-map" href="https://www.google.com/maps/search/?api=1&query=裕豐苑+匯東街12號" target="_blank">Google 地圖</a>
       </div>
     </div>
 
@@ -224,9 +315,17 @@
           <div class="info-item"><strong>實用面積</strong>約294–507呎</div>
           <div class="info-item"><strong>預計關鍵日期</strong>2028年8月31日</div>
         </div>
-        <a class="btn" href="https://hos.housingauthority.gov.hk/mini-site/hos2025/common/pdf/Sales-Booklet-LongFung.pdf" target="_blank">直接下載售樓說明書 PDF</a>
-        <a class="btn btn-map" href="https://www.google.com/maps/search/?api=1&query=朗風苑+朗風街" target="_blank">查看 Google 地圖</a>
-        <div class="note">PDF 內含完整平面圖及室號。</div>
+        <div class="floorplans">
+          <h3>平面圖（含單位號碼）· 點擊縮圖放大</h3>
+          <div class="thumb-grid">
+            <div class="thumb" onclick="openLightbox('longfung_typ-06.png','朗風苑 標準層平面圖')">
+              <img src="thumb_longfung.png" alt="朗風苑標準層">
+              <div class="thumb-label">標準層平面圖</div>
+            </div>
+          </div>
+        </div>
+        <a class="btn" href="https://hos.housingauthority.gov.hk/mini-site/hos2025/common/pdf/Sales-Booklet-LongFung.pdf" target="_blank">完整售樓說明書 PDF</a>
+        <a class="btn btn-map" href="https://www.google.com/maps/search/?api=1&query=朗風苑+朗風街" target="_blank">Google 地圖</a>
       </div>
     </div>
 
@@ -241,9 +340,17 @@
           <div class="info-item"><strong>實用面積</strong>約281–490呎</div>
           <div class="info-item"><strong>預計關鍵日期</strong>2028年10月31日</div>
         </div>
-        <a class="btn" href="https://hos.housingauthority.gov.hk/mini-site/hos2025/common/pdf/Sales-Booklet-KaiYeung.pdf" target="_blank">直接下載售樓說明書 PDF</a>
-        <a class="btn btn-map" href="https://www.google.com/maps/search/?api=1&query=啟陽苑+沐和街8號" target="_blank">查看 Google 地圖</a>
-        <div class="note">PDF 內含完整平面圖及室號。</div>
+        <div class="floorplans">
+          <h3>平面圖（含單位號碼）· 點擊縮圖放大</h3>
+          <div class="thumb-grid">
+            <div class="thumb" onclick="openLightbox('kaiyeung_typ-06.png','啟陽苑 標準層平面圖')">
+              <img src="thumb_kaiyeung.png" alt="啟陽苑標準層">
+              <div class="thumb-label">標準層平面圖</div>
+            </div>
+          </div>
+        </div>
+        <a class="btn" href="https://hos.housingauthority.gov.hk/mini-site/hos2025/common/pdf/Sales-Booklet-KaiYeung.pdf" target="_blank">完整售樓說明書 PDF</a>
+        <a class="btn btn-map" href="https://www.google.com/maps/search/?api=1&query=啟陽苑+沐和街8號" target="_blank">Google 地圖</a>
       </div>
     </div>
 
@@ -258,9 +365,17 @@
           <div class="info-item"><strong>實用面積</strong>約283–560呎</div>
           <div class="info-item"><strong>預計關鍵日期</strong>2028年12月31日</div>
         </div>
-        <a class="btn" href="https://hos.housingauthority.gov.hk/mini-site/hos2025/common/pdf/Sales-Booklet-YingFai.pdf" target="_blank">直接下載售樓說明書 PDF</a>
-        <a class="btn btn-map" href="https://www.google.com/maps/search/?api=1&query=影輝苑+影業路" target="_blank">查看 Google 地圖</a>
-        <div class="note">PDF 內含完整平面圖及室號。</div>
+        <div class="floorplans">
+          <h3>平面圖（含單位號碼）· 點擊縮圖放大</h3>
+          <div class="thumb-grid">
+            <div class="thumb" onclick="openLightbox('yingfai_typ-06.png','影輝苑 標準層平面圖')">
+              <img src="thumb_yingfai.png" alt="影輝苑標準層">
+              <div class="thumb-label">標準層平面圖</div>
+            </div>
+          </div>
+        </div>
+        <a class="btn" href="https://hos.housingauthority.gov.hk/mini-site/hos2025/common/pdf/Sales-Booklet-YingFai.pdf" target="_blank">完整售樓說明書 PDF</a>
+        <a class="btn btn-map" href="https://www.google.com/maps/search/?api=1&query=影輝苑+影業路" target="_blank">Google 地圖</a>
       </div>
     </div>
 
@@ -275,15 +390,17 @@
           <div class="info-item"><strong>實用面積</strong>約447–489呎</div>
           <div class="info-item"><strong>預計關鍵日期</strong>2029年12月31日</div>
         </div>
-        <div class="unit-list">
-          <strong>標準層室號（4/F–24/F & 26/F–50/F）：</strong>
-          <ul>
-            <li>室號 1–20</li>
-          </ul>
+        <div class="floorplans">
+          <h3>平面圖（含單位號碼）· 點擊縮圖放大</h3>
+          <div class="thumb-grid">
+            <div class="thumb" onclick="openLightbox('yannga_typical-026.png','欣雅苑 標準層平面圖')">
+              <img src="thumb_yannga.png" alt="欣雅苑標準層">
+              <div class="thumb-label">標準層平面圖<br>室號 1–20</div>
+            </div>
+          </div>
         </div>
-        <a class="btn" href="https://hos.housingauthority.gov.hk/mini-site/ssewfc/common/pdf/Sales-Brochure-Yan-Nga.pdf" target="_blank">直接下載售樓說明書 PDF</a>
-        <a class="btn btn-map" href="https://www.google.com/maps/search/?api=1&query=欣雅苑+頌雅路" target="_blank">查看 Google 地圖</a>
-        <div class="note">PDF 內含完整平面圖及室號。</div>
+        <a class="btn" href="https://hos.housingauthority.gov.hk/mini-site/ssewfc/common/pdf/Sales-Brochure-Yan-Nga.pdf" target="_blank">完整售樓說明書 PDF</a>
+        <a class="btn btn-map" href="https://www.google.com/maps/search/?api=1&query=欣雅苑+頌雅路" target="_blank">Google 地圖</a>
       </div>
     </div>
 
@@ -298,9 +415,17 @@
           <div class="info-item"><strong>實用面積</strong>約447–489呎</div>
           <div class="info-item"><strong>預計關鍵日期</strong>2031年3月31日</div>
         </div>
-        <a class="btn" href="https://hos.housingauthority.gov.hk/mini-site/ssewfc/common/pdf/Sales-Brochure-Hiu-Nga.pdf" target="_blank">直接下載售樓說明書 PDF</a>
-        <a class="btn btn-map" href="https://www.google.com/maps/search/?api=1&query=曉雅苑+頌雅路" target="_blank">查看 Google 地圖</a>
-        <div class="note">PDF 內含完整平面圖及室號。</div>
+        <div class="floorplans">
+          <h3>平面圖（含單位號碼）· 點擊縮圖放大</h3>
+          <div class="thumb-grid">
+            <div class="thumb" onclick="openLightbox('hiunga_typ-026.png','曉雅苑 標準層平面圖')">
+              <img src="thumb_hiunga.png" alt="曉雅苑標準層">
+              <div class="thumb-label">標準層平面圖</div>
+            </div>
+          </div>
+        </div>
+        <a class="btn" href="https://hos.housingauthority.gov.hk/mini-site/ssewfc/common/pdf/Sales-Brochure-Hiu-Nga.pdf" target="_blank">完整售樓說明書 PDF</a>
+        <a class="btn btn-map" href="https://www.google.com/maps/search/?api=1&query=曉雅苑+頌雅路" target="_blank">Google 地圖</a>
       </div>
     </div>
 
@@ -308,22 +433,24 @@
     <div id="lokling" class="panel">
       <div class="card">
         <h2>樂嶺軒 <span class="badge">Sierra Terrace</span></h2>
-        <p>粉嶺百和路72號｜房協資助出售房屋（已落成）</p>
+        <p>粉嶺百和路72號｜房協資助出售房屋</p>
         <div class="info-grid">
           <div class="info-item"><strong>特設單位數</strong>300</div>
           <div class="info-item"><strong>座數</strong>1座</div>
           <div class="info-item"><strong>實用面積</strong>約305–686呎</div>
           <div class="info-item"><strong>預計入伙</strong>已落成</div>
         </div>
-        <div class="unit-list">
-          <strong>標準層室號：</strong>
-          <ul>
-            <li>A區：A1–A9　B區：B1–B6　C區：C1–C9</li>
-          </ul>
+        <div class="floorplans">
+          <h3>平面圖（含單位號碼）· 點擊縮圖放大</h3>
+          <div class="thumb-grid">
+            <div class="thumb" onclick="openLightbox('lokling_typical-028.png','樂嶺軒 標準層平面圖')">
+              <img src="thumb_lokling.png" alt="樂嶺軒標準層">
+              <div class="thumb-label">標準層平面圖<br>A/B/C 區室號</div>
+            </div>
+          </div>
         </div>
-        <a class="btn" href="https://sierraterrace.hkhs.com/uploads/PWR_SB_7thExam-(Aug25).pdf" target="_blank">直接下載售樓說明書 PDF</a>
-        <a class="btn btn-map" href="https://www.google.com/maps/search/?api=1&query=樂嶺軒+百和路72號" target="_blank">查看 Google 地圖</a>
-        <div class="note">PDF 內含完整平面圖及室號。</div>
+        <a class="btn" href="https://sierraterrace.hkhs.com/uploads/PWR_SB_7thExam-(Aug25).pdf" target="_blank">完整售樓說明書 PDF</a>
+        <a class="btn btn-map" href="https://www.google.com/maps/search/?api=1&query=樂嶺軒+百和路72號" target="_blank">Google 地圖</a>
       </div>
     </div>
 
@@ -338,18 +465,33 @@
           <div class="info-item"><strong>實用面積</strong>約302呎起</div>
           <div class="info-item"><strong>預計入伙</strong>約2028年</div>
         </div>
-        <a class="btn" href="https://hemmasapphire.hkhs.com/download/brochure/Hemma%20Sapphire_SB_20260921.pdf" target="_blank">直接下載售樓說明書 PDF</a>
-        <a class="btn btn-map" href="https://www.google.com/maps/search/?api=1&query=灝然+安禧街" target="_blank">查看 Google 地圖</a>
-        <div class="note">PDF 內含完整平面圖及室號。</div>
+        <div class="floorplans">
+          <h3>平面圖（含單位號碼）· 點擊縮圖放大</h3>
+          <div class="thumb-grid">
+            <div class="thumb" onclick="openLightbox('hemma_typ-032.png','灝然 標準層平面圖')">
+              <img src="thumb_hemma.png" alt="灝然標準層">
+              <div class="thumb-label">標準層平面圖</div>
+            </div>
+          </div>
+        </div>
+        <a class="btn" href="https://hemmasapphire.hkhs.com/download/brochure/Hemma%20Sapphire_SB_20260921.pdf" target="_blank">完整售樓說明書 PDF</a>
+        <a class="btn btn-map" href="https://www.google.com/maps/search/?api=1&query=灝然+安禧街" target="_blank">Google 地圖</a>
       </div>
     </div>
 
   </div>
 
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+    <img id="lightbox-img" src="" alt="平面圖放大">
+    <div class="lightbox-caption" id="lightbox-caption"></div>
+  </div>
+
   <footer>
-    資料來源：房屋局／房屋委員會／房屋協會官方公布<br>
-    所有連結均直接指向官方售樓說明書 PDF 及 Google 地圖<br>
-    特設銷售計劃官方網站：<a href="https://hos.housingauthority.gov.hk/mini-site/ssewfc/" target="_blank">https://hos.housingauthority.gov.hk/mini-site/ssewfc/</a>
+    資料來源：房屋局／房屋委員會／房屋協會官方售樓說明書<br>
+    平面圖已提取有單位號碼的標準層 · 點擊縮圖可放大查看<br>
+    特設銷售計劃官方網站：<a href="https://hos.housingauthority.gov.hk/mini-site/ssewfc/" target="_blank">官方連結</a>
   </footer>
 
   <script>
@@ -359,6 +501,24 @@
       document.getElementById(id).classList.add('active');
       event.currentTarget.classList.add('active');
     }
+
+    function openLightbox(src, caption) {
+      event.stopPropagation();
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox-caption').textContent = caption;
+      document.getElementById('lightbox').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // ESC to close
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeLightbox();
+    });
   </script>
 </body>
 </html>
